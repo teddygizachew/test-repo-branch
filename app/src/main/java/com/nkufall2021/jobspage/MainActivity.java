@@ -11,7 +11,7 @@ import android.view.View;
 
 import java.util.LinkedList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements{
     private final LinkedList<String> jobList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private JobListAdapter mJobListAdapter;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Put initial data into the word list.
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 10; i++) {
             jobList.addLast("Word " + i);
         }
         setAdapter();
