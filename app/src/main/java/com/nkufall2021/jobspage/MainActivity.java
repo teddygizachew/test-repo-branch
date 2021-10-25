@@ -5,17 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-
 import java.util.LinkedList;
 
-public class MainActivity extends AppCompatActivity implements{
-    private final LinkedList<String> jobList = new LinkedList<>();
+public class MainActivity extends AppCompatActivity {
+    private final LinkedList<Job> jobs = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private JobListAdapter mJobListAdapter;
-    private JobListAdapter.RecyclerViewClickListener listener;
 
 
     @Override
@@ -23,10 +19,10 @@ public class MainActivity extends AppCompatActivity implements{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Put initial data into the word list.
         for (int i = 0; i < 10; i++) {
-            jobList.addLast("Word " + i);
+            jobs.addLast(new Job(1, "Student Union Delivery", "Description"));
         }
+
         setAdapter();
     }
 
@@ -34,23 +30,11 @@ public class MainActivity extends AppCompatActivity implements{
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.jobListRecyclerView);
         // Create an adapter and supply the data to be displayed.
-        mJobListAdapter = new JobListAdapter(this, jobList, listener);
+        mJobListAdapter = new JobListAdapter(this, jobs);
         // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(mJobListAdapter);
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        setOnClickListener();
-    }
-
-    private void setOnClickListener() {
-        listener = new JobListAdapter.RecyclerViewClickListener() {
-            @Override
-            public void onClick(View v, int position) {
-                Intent intent = new Intent(getApplicationContext(), JobActivity.class);
-                intent.putExtra("position", jobList.get(position));
-                startActivity(intent);
-            }
-        };
     }
 }
